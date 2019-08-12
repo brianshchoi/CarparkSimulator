@@ -11,7 +11,6 @@ public class Simulator {
     public static void main(String[] args) {
         String filename = "Carpark";
 
-
         if (args.length < 7) {
             System.out.println(
                     "Invalid amount of arguments \n" +
@@ -26,7 +25,6 @@ public class Simulator {
             );
             System.exit(0);
         } else {
-
             try {
                 CarPark cp;
 
@@ -60,8 +58,10 @@ public class Simulator {
                 System.out.println("CarPark Simulator running...");
 
                 for (int i = 0; i < numberOfRuns; i++) {
-                    cp = MockOccupancy.randomiseCarPark(new CarPark(carParkID, carParkCapacity, calendar), i + 1, numberOfRuns);
+                    cp = MockOccupancy.randomiseCarPark(
+                            new CarPark(carParkID, carParkCapacity, calendar), i + 1, numberOfRuns);
                     csvConverter.appendDataToFile(cp);
+
                     System.out.println("Data @" + cp.getTimestampAsString() + " appended");
 
                     try {
@@ -72,7 +72,6 @@ public class Simulator {
 
                     calendar.add(Calendar.MINUTE, delayBetweenMinutes);
                 }
-
                 System.out.println("Simulation Done");
             } catch (NumberFormatException e) {
                 e.printStackTrace();

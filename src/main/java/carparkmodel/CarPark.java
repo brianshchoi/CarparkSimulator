@@ -13,8 +13,6 @@ public class CarPark {
     private Sensor[] _sensors;
     private Calendar _calendar;
 
-    // TODO: Add other sensors
-
     public CarPark(int carParkID, int capacity) {
         _carParkID = carParkID;
         _capacity = capacity;

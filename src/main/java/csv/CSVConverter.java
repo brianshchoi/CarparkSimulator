@@ -2,6 +2,7 @@ package csv;
 
 import carparkmodel.CarPark;
 import carparkmodel.Sensor;
+import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -40,7 +41,7 @@ public class CSVConverter {
             FileWriter fileWriter = new FileWriter(_filename, true);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
 
-            List<String[]> data = new ArrayList<>();
+            List<String[]> data = new ArrayList<String[]>();
             // Create Headers
             data.add(new String[]{"CARPARK_ID", "SENSOR_ID", "DATE", "OCCUPIED", "BATTERY_HEALTH", "NODE_STATUS"});
 
@@ -56,13 +57,13 @@ public class CSVConverter {
             FileWriter fileWriter = new FileWriter(_filename, true);
             CSVWriter csvWriter = new CSVWriter(fileWriter, comma, empty);
 
-            List<String[]> data = new ArrayList<>();
+            List<String[]> data = new ArrayList<String[]>();
 
             // DataSet Row
             for (Sensor sensor : cp.getSensors()) {
                 data.add(new String[] {
                         // CarPark Id
-                        "Carpark" + "0" + Integer.toString(cp.getCarParkID()),
+//                        "Carpark" + "0" + Integer.toString(cp.getCarParkID()),
 
                         // Sensor Id
                         Integer.toString(sensor.getId()),
@@ -74,10 +75,10 @@ public class CSVConverter {
                         sensor.getIsOccupiedAsString(),
 
                         // Battery Health
-                        sensor.getBatteryHealth(),
+//                        sensor.getBatteryHealth(),
 
                         // Node Status
-                        sensor.getNodeStatus()
+//                        sensor.getNodeStatus()
                 });
             }
             csvWriter.writeAll(data);

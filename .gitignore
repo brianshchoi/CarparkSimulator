@@ -152,4 +152,8 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+# CSV and TXT files
+*.CSV
+*.TXT
+
 # End of https://www.gitignore.io/api/java,macos,maven,intellij+all
