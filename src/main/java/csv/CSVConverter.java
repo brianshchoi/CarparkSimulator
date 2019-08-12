@@ -1,6 +1,7 @@
 package csv;
 
 import carparkmodel.CarPark;
+import carparkmodel.Sensor;
 
 import java.io.File;
 import java.io.FileWriter;
