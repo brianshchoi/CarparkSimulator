@@ -1,39 +1,40 @@
 package carparkmodel;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
+
+import static util.MacAddress.generateRandomMacAddress;
 
 public class CarPark {
 
     private int _carParkID;
     private int _capacity;
-    private int _occupancy;
-    private Sensor[] _sensors;
+    private HashMap<String, Sensor> _sensors;
+
+//    private Sensor[] _sensors;
     private Calendar _calendar;
 
     public CarPark(int carParkID, int capacity) {
         _carParkID = carParkID;
         _capacity = capacity;
-        _occupancy = 0;
         _calendar = new GregorianCalendar();
-        _sensors = new Sensor[capacity];
+        _sensors = new LinkedHashMap<String, Sensor>();
 
         for (int i = 0; i < capacity; i++) {
-            _sensors[i] = new Sensor(i, 100, NodeStatus.ONLINE, _calendar);
+            Sensor s = new Sensor(generateRandomMacAddress(), _calendar);
+            _sensors.put(s.getMacAddress(), s);
         }
     }
 
     public CarPark(int carParkID, int capacity, Calendar calendar) {
         _carParkID = carParkID;
         _capacity = capacity;
-        _occupancy = 0;
         _calendar = calendar;
-        _sensors = new Sensor[capacity];
+        _sensors = new LinkedHashMap<String, Sensor>();
 
         for (int i = 0; i < capacity; i++) {
-            _sensors[i] = new Sensor(i, 100, NodeStatus.ONLINE, _calendar);
+            Sensor s = new Sensor(generateRandomMacAddress(), _calendar);
+            _sensors.put(s.getMacAddress(), s);
         }
     }
 
@@ -45,22 +46,8 @@ public class CarPark {
         return _capacity;
     }
 
-    public int getOccupancy() {
-        _occupancy = 0;
-
-        for (Sensor sensor: _sensors) {
-            _occupancy = sensor.getIsOccupied() ? _occupancy + 1 : _occupancy;
-        }
-
-        return _occupancy;
-    }
-
-    public Sensor getSensor(int index) {
-        if (index >= 0 && index < _capacity) {
-            return _sensors[index];
-        } else {
-            throw new IllegalArgumentException("Index out of bounds");
-        }
+    public Sensor getSensor(String key) {
+        return _sensors.get(key);
     }
 
     public String getTimestampAsString() {
@@ -75,7 +62,7 @@ public class CarPark {
         _calendar.setTime(date);
     }
 
-    public Sensor[] getSensors() {
+    public HashMap<String, Sensor> getSensors() {
         return _sensors;
     }
 }

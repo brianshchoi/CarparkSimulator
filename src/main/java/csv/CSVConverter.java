@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CSVConverter {
 
-    private static final String FILE_EXTENSION = ".txt";
+    private static final String FILE_EXTENSION = ".csv";
     //    private static final String FOLDER = "./dataset/";
     private final String _filename;
 
@@ -65,8 +65,8 @@ public class CSVConverter {
                         // CarPark Id
 //                        "Carpark" + "0" + Integer.toString(cp.getCarParkID()),
 
-                        // Sensor Id
-                        Integer.toString(sensor.getId()),
+                        // Sensor Mac Address (ID)
+                        sensor.getMacAddress(),
 
                         // Date
                         sensor.getTimestamp(),

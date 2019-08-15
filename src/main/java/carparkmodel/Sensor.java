@@ -5,30 +5,24 @@ import java.util.Calendar;
 
 public class Sensor {
 
-    private int _id;
-    private float _batteryHealth;
-    private NodeStatus _nodeStatus;
+    private String _macAddress;
     private boolean _isOccupied;
     private Calendar _calendar;
 
-    public Sensor(int id, float battery_health, NodeStatus nodeStatus, boolean isOccupied, Calendar timestamp) {
-        _id = id;
-        _batteryHealth = battery_health;
-        _nodeStatus = nodeStatus;
+    public Sensor(String macAddress, boolean isOccupied, Calendar timestamp) {
+        _macAddress = macAddress;
+        _calendar = timestamp;
         _isOccupied = isOccupied;
-        _calendar = timestamp;
     }
 
-    public Sensor(int id, float battery_health, NodeStatus nodeStatus, Calendar timestamp) {
-        _id = id;
-        _batteryHealth = battery_health;
-        _nodeStatus = nodeStatus;
+    public Sensor(String macAddress, Calendar timestamp) {
+        _macAddress = macAddress;
+        _calendar = timestamp;
         _isOccupied = false;
-        _calendar = timestamp;
     }
 
-    public int getId() {
-        return _id;
+    public String getMacAddress() {
+        return _macAddress;
     }
 
     public boolean getIsOccupied() {
@@ -43,15 +37,8 @@ public class Sensor {
         _isOccupied = isOccupied;
     }
 
-    public String getBatteryHealth() {
-        return Float.toString(_batteryHealth);
-    }
-
     public String getTimestamp() {
         return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a").format(_calendar.getTime());
     }
 
-    public String getNodeStatus() {
-        return _nodeStatus.toString();
-    }
 }
