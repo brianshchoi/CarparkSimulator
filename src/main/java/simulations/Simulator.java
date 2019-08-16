@@ -1,7 +1,7 @@
 package simulations;
 
 import carparkmodel.CarPark;
-import csv.CSVConverter;
+import csv.CSVWriter;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -21,7 +21,7 @@ public class Simulator {
                             "Arg 4: Starting Hour (24h) \n" +
                             "Arg 5: Starting Minute \n" +
                             "Arg 6: Starting Second \n" +
-                            "\n" + "e.g. java -jar SmartParkingSpark.jar 1 100 288 5 12 30 0"
+                            "\n" + "e.g. java -jar CarparkSimulator.jar 1 100 288 5 12 30 0"
             );
             System.exit(0);
         } else {
@@ -53,14 +53,17 @@ public class Simulator {
                         startingMinute,
                         startingSecond);
 
-                CSVConverter csvConverter = new CSVConverter(filename);
+                CSVWriter csvWriter = new CSVWriter(filename);
 
                 System.out.println("CarPark Simulator running...");
 
                 for (int i = 0; i < numberOfRuns; i++) {
                     cp = MockOccupancy.randomiseCarPark(
                             new CarPark(carParkID, carParkCapacity, calendar), i + 1, numberOfRuns);
-                    csvConverter.appendDataToFile(cp);
+
+                    for (int j = 0; j < cp.getSensors().length; j++) {
+                        csvWriter.appendNodeToFile(cp.getSensor(j));
+                    }
 
                     System.out.println("Data @" + cp.getTimestampAsString() + " appended");
 
