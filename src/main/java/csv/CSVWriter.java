@@ -17,7 +17,7 @@ public class CSVWriter {
         _filename = filename + FILE_EXTENSION;
 
         try {
-            File f = new File(filename);
+            File f = new File(_filename);
 
             // Only if file doesn't exist, create a new csv file
             if (!f.exists()) {
