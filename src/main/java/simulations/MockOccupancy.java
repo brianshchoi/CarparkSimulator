@@ -1,22 +1,27 @@
 package simulations;
 
 import carparkmodel.CarPark;
+import carparkmodel.Sensor;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class MockOccupancy {
-    public static CarPark randomiseCarPark(CarPark cp, int runNumber, int totalRuns) {
+    public static CarPark randomiseCarPark(CarPark carPark, int runNumber, int totalRuns) {
         Random random = new Random();
+        HashMap<Integer, String> indexMap = carPark.getSensorIndexMap();
+        HashMap<String, Sensor> sensors = carPark.getSensors();
 
-        for (int i = 0; i < cp.getCapacity(); i++) {
+        for (int i = 0; i < carPark.getCapacity(); i++) {
+            // Randomise occupancy
             if (random.nextFloat() < pseudoRandomProbability(runNumber, totalRuns)) {
-                cp.getSensor(i).setIsOccupied(true);
+                sensors.get(indexMap.get(i)).setIsOccupied(true);
             } else {
-                cp.getSensor(i).setIsOccupied(false);
+                sensors.get(indexMap.get(i)).setIsOccupied(false);
             }
         }
 
-        return cp;
+        return carPark;
     }
 
     public static float pseudoRandomProbability(int runNumber, int totalRuns) {

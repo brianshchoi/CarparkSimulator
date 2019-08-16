@@ -2,7 +2,7 @@ package util;
 
 import java.util.Random;
 
-public class MacAddress {
+public class MACAddress {
 
     public static String generateRandomMacAddress() {
         String macAddress = generateSubString();
