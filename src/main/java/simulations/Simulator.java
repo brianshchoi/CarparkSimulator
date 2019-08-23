@@ -3,6 +3,7 @@ package simulations;
 import carparkmodel.CarPark;
 import carparkmodel.Sensor;
 import csv.CSVWriter;
+import csv.JSONWriter;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -53,7 +54,8 @@ public class Simulator {
                         startingMinute,
                         startingSecond);
 
-                CSVWriter csvWriter = new CSVWriter(filename);
+//                CSVWriter csvWriter = new CSVWriter(filename);
+                JSONWriter jsonWriter = new JSONWriter(filename);
 
                 System.out.println("CarPark Simulator running...");
 
@@ -66,7 +68,8 @@ public class Simulator {
 
                     for (int j = 0; j < cp.getCapacity(); j++) {
                         String macAddress = indexMap.get(j);
-                        csvWriter.appendNodeToFile(sensors.get(macAddress));
+                        jsonWriter.toJson(sensors.get(macAddress));
+//                        csvWriter.appendNodeToFile(sensors.get(macAddress));
                     }
 
                     System.out.println("Data @" + cp.getTimestampAsString() + " appended");

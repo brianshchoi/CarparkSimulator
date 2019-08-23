@@ -1,5 +1,6 @@
 package carparkmodel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Sensor {
@@ -37,7 +38,7 @@ public class Sensor {
     }
 
     public String getTimestamp() {
-        return _calendar.getTime().toString();
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(_calendar.getTime());
     }
 
 }

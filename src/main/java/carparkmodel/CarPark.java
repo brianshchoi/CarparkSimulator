@@ -11,21 +11,7 @@ public class CarPark {
     private int _capacity;
     private HashMap<String, Sensor> _sensors;
     private HashMap<Integer, String> _sensorMACAddressMap;
-
-//    private Sensor[] _sensors;
     private Calendar _calendar;
-//
-//    public CarPark(int carParkID, int capacity) {
-//        _carParkID = carParkID;
-//        _capacity = capacity;
-//        _calendar = new GregorianCalendar();
-//        _sensors = new HashMap<String, Sensor>();
-//
-//        for (int i = 0; i < capacity; i++) {
-//            Sensor s = new Sensor(generateRandomMacAddress(), _calendar);
-//            _sensors.put(s.getMacAddress(), s);
-//        }
-//    }
 
     public CarPark(int carParkID, int capacity, Calendar calendar) {
         _carParkID = carParkID;
