@@ -157,3 +157,5 @@ buildNumber.properties
 *.TXT
 
 # End of https://www.gitignore.io/api/java,macos,maven,intellij+all
+
+Carpark.json
