@@ -49,7 +49,33 @@ public class RandomSimulator implements Runnable{
         synchronized (this) {
             while(!stop) {
                 try {
-                    MockOccupancy.randomEventCarPark(_carPark, _bootstrapServer, _topicName);
+                    float run = new Random().nextFloat();
+                    int numRuns = 0;
+
+                    if (run < 0.5) {
+                        numRuns = 1;
+                    } else if (run >= 0.5 && run < 0.7) {
+                        numRuns = 2;
+                    } else if (run >=0.7 && run < 0.8) {
+                        numRuns = 3;
+                    } else if (run >= 0.8 && run < 0.85) {
+                        numRuns = 4;
+                    } else if (run >= 0.85 && run < 0.9) {
+                        numRuns = 5;
+                    } else if (run >= 0.9 && run < 0.925) {
+                        numRuns = 6;
+                    } else if (run >= 0.925 && run < 0.95) {
+                        numRuns = 7;
+                    } else if (run >= 0.95 && run < 0.975) {
+                        numRuns = 8;
+                    } else if (run >= 0.975 && run < 1) {
+                        numRuns = 9;
+                    }
+
+                    for (int i =0; i < numRuns; i++) {
+                        MockOccupancy.randomEventCarPark(_carPark, _bootstrapServer, _topicName);
+                    }
+
                     Thread.sleep(new Random().nextInt(15000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
