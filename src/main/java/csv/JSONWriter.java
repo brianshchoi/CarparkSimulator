@@ -2,9 +2,9 @@ package csv;
 
 import carparkmodel.Sensor;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+
+import static util.KafkaProducerAPI.runProducer;
 
 public class JSONWriter {
 
@@ -27,21 +27,19 @@ public class JSONWriter {
     }
 
     public void toJson(Sensor sensor) {
+        // REMOVE FOR LATER
+        writeToFile(jsonString(sensor));
+        writeToTerminal(jsonString(sensor));
+    }
 
-        String json =
-                "{" +
+    private String jsonString(Sensor sensor) {
+        return "{" +
                 "\"timestamp\": \"" + sensor.getTimestamp() + "\"," +
                 "\"nodeID\": \"" + sensor.getMacAddress() + "\"," +
                 "\"payload\": {" +
                 "\"occupied\": " + sensor.getIsOccupiedAsString() + "" +
                 "}" +
                 "}\n";
-
-        // REMOVE FOR LATER
-        writeToFile(json);
-
-        //
-        writeToTerminal(json);
     }
 
     private void writeToFile(String json) {
@@ -56,8 +54,24 @@ public class JSONWriter {
         }
     }
 
-    private void writeToTerminal(String json) {
+    public void writeToTerminal(String json) {
         System.out.println(json);
     }
 
+    public void toKafkaProducer(final Sensor randomSensor, final String server, final String port, final String topicName) {
+        final String bootstrapServer = server + ":" + port;
+
+        final Thread thread = new Thread(new Runnable() {
+            private volatile boolean running = true;
+
+            public void run() {
+                while (running) {
+                    runProducer(bootstrapServer, topicName, jsonString(randomSensor));
+                    running = false;
+                }
+            }
+        });
+
+        thread.start();
+    }
 }

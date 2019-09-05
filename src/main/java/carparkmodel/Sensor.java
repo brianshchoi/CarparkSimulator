@@ -2,6 +2,7 @@ package carparkmodel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Sensor {
 
@@ -37,8 +38,15 @@ public class Sensor {
         _isOccupied = isOccupied;
     }
 
+    public void setOpposite() {
+        _isOccupied = !_isOccupied;
+    }
+
     public String getTimestamp() {
         return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(_calendar.getTime());
     }
 
+    public void setCurrentTimestamp() {
+        _calendar = GregorianCalendar.getInstance();
+    }
 }

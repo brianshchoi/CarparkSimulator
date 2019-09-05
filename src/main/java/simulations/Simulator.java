@@ -2,7 +2,6 @@ package simulations;
 
 import carparkmodel.CarPark;
 import carparkmodel.Sensor;
-import csv.CSVWriter;
 import csv.JSONWriter;
 
 import java.util.Calendar;
