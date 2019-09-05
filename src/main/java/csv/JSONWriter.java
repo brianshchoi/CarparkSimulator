@@ -58,9 +58,7 @@ public class JSONWriter {
         System.out.println(json);
     }
 
-    public void toKafkaProducer(final Sensor randomSensor, final String server, final String port, final String topicName) {
-        final String bootstrapServer = server + ":" + port;
-
+    public void toKafkaProducer(final Sensor randomSensor, final String bootstrapServer, final String topicName) {
         final Thread thread = new Thread(new Runnable() {
             private volatile boolean running = true;
 

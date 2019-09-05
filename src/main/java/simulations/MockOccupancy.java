@@ -26,7 +26,7 @@ public class MockOccupancy {
         return carPark;
     }
 
-    static void randomEventCarPark(CarPark carPark, String server, String port, String topicName) {
+    static void randomEventCarPark(CarPark carPark, String bootstrapServer, String topicName) {
         JSONWriter writer = new JSONWriter("Carpark");
         HashMap<Integer, String> indexMap = carPark.getSensorIndexMap();
         HashMap<String, Sensor> sensors = carPark.getSensors();
@@ -38,7 +38,7 @@ public class MockOccupancy {
         randomSensor.setOpposite();
         randomSensor.setCurrentTimestamp();
 
-        writer.toKafkaProducer(randomSensor, server, port, topicName);
+        writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
         writer.toJson(randomSensor);
     }
 
