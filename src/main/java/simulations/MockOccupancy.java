@@ -11,15 +11,16 @@ import java.util.Random;
 public class MockOccupancy {
     public static CarPark randomiseCarPark(CarPark carPark, int runNumber, int totalRuns) {
         Random random = new Random();
-        HashMap<Integer, String> indexMap = carPark.getSensorIndexMap();
+//        HashMap<Integer, String> indexMap = carPark.getSensorIndexMap();
+        String[] indexMap = carPark.getSensorIndexMap();
         HashMap<String, Sensor> sensors = carPark.getSensors();
 
         for (int i = 0; i < carPark.getCapacity(); i++) {
             // Randomise occupancy
             if (random.nextFloat() < pseudoRandomProbability(runNumber, totalRuns)) {
-                sensors.get(indexMap.get(i)).setIsOccupied(true);
+                sensors.get(indexMap[i]).setIsOccupied(true);
             } else {
-                sensors.get(indexMap.get(i)).setIsOccupied(false);
+                sensors.get(indexMap[i]).setIsOccupied(false);
             }
         }
 
@@ -28,18 +29,19 @@ public class MockOccupancy {
 
     static void randomEventCarPark(CarPark carPark, String bootstrapServer, String topicName) {
         JSONWriter writer = new JSONWriter("Carpark");
-        HashMap<Integer, String> indexMap = carPark.getSensorIndexMap();
+//        HashMap<Integer, String> indexMap = carPark.getSensorIndexMap();
+        String[] indexMap = carPark.getSensorIndexMap();
         HashMap<String, Sensor> sensors = carPark.getSensors();
 
         Sensor randomSensor = sensors.get(
-                indexMap.get(
-                        new Random().nextInt(sensors.size())));
+                indexMap[
+                        new Random().nextInt(sensors.size())]);
 
         randomSensor.setOpposite();
         randomSensor.setCurrentTimestamp();
 
         writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
-        writer.toJson(randomSensor);
+//        writer.toJson(randomSensor);
     }
 
     public static float pseudoRandomProbability(int runNumber, int totalRuns) {

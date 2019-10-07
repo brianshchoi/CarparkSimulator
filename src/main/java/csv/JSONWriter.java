@@ -28,7 +28,7 @@ public class JSONWriter {
 
     public void toJson(Sensor sensor) {
         // REMOVE FOR LATER
-        writeToFile(jsonString(sensor));
+//        writeToFile(jsonString(sensor));
         writeToTerminal(jsonString(sensor));
     }
 
