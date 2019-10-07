@@ -3,14 +3,12 @@ package carparkmodel;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static util.MACAddress.generateRandomMacAddress;
 
 public class CarPark {
 
     private int _carParkID;
     private int _capacity;
     private HashMap<String, Sensor> _sensors;
-//    private HashMap<Integer, String> _sensorMACAddressMap;
     private Calendar _calendar;
 
     private String[] _sensorMACAddressArray = new String[]{
@@ -40,15 +38,10 @@ public class CarPark {
         _carParkID = carParkID;
         _capacity = capacity;
         _calendar = calendar;
-//        _sensorMACAddressMap = new HashMap<Integer, String>();
-        _sensors = new HashMap<String, Sensor>();
+        _sensors = new HashMap<>();
 
         initCarparkNodes(capacity);
     }
-
-//    public HashMap<Integer, String> getSensorIndexMap() {
-//        return _sensorMACAddressMap;
-//    }
 
     public String[] getSensorIndexMap() {
         return _sensorMACAddressArray;
@@ -84,13 +77,6 @@ public class CarPark {
 
     private void initCarparkNodes(int capacity) {
         for (int i = 0; i < capacity; i++) {
-//            String macAddress = generateRandomMacAddress();
-
-//            while(_sensorMACAddressMap.containsValue(macAddress)) {
-//                macAddress = generateRandomMacAddress();
-//            }
-
-//            _sensorMACAddressMap.put(i, macAddress);
             Sensor s = new Sensor(_sensorMACAddressArray[i], _calendar);
             _sensors.put(_sensorMACAddressArray[i], s);
         }

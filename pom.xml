@@ -33,7 +33,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>simulations.RandomSimulator</mainClass>
+                            <mainClass>simulations.OccupancySimulator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -60,7 +60,7 @@
                     <!-- MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>simulations.RandomSimulator</mainClass>
+                            <mainClass>simulations.OccupancySimulator</mainClass>
                         </manifest>
                     </archive>
 

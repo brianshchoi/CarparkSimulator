@@ -4,7 +4,6 @@ import carparkmodel.CarPark;
 import carparkmodel.Sensor;
 import csv.JSONWriter;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 

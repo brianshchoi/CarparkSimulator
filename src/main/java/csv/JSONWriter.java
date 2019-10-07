@@ -28,16 +28,26 @@ public class JSONWriter {
 
     public void toJson(Sensor sensor) {
         // REMOVE FOR LATER
-//        writeToFile(jsonString(sensor));
-        writeToTerminal(jsonString(sensor));
+//        writeToFile(sensorJsonString(sensor));
+        writeToTerminal(sensorJsonString(sensor));
     }
 
-    private String jsonString(Sensor sensor) {
+    private String sensorJsonString(Sensor sensor) {
         return "{" +
                 "\"timestamp\": \"" + sensor.getTimestamp() + "\"," +
                 "\"nodeID\": \"" + sensor.getMacAddress() + "\"," +
                 "\"payload\": {" +
                 "\"occupied\": " + sensor.getIsOccupiedAsString() + "" +
+                "}" +
+                "}\n";
+    }
+
+    private String gateJsonString(String[] fields) {
+        return "{" +
+                "\"timestamp\": \"" + fields[0] + "\"," +
+                "\"nodeID\": \"" + fields[1] + "\"," +
+                "\"payload\": {" +
+                "\"entry\": " + fields[2] + "" +
                 "}" +
                 "}\n";
     }
@@ -64,7 +74,22 @@ public class JSONWriter {
 
             public void run() {
                 while (running) {
-                    runProducer(bootstrapServer, topicName, jsonString(randomSensor));
+                    runProducer(bootstrapServer, topicName, sensorJsonString(randomSensor));
+                    running = false;
+                }
+            }
+        });
+
+        thread.start();
+    }
+
+    public void toKafkaProducer(final String[] fields, final String bootstrapServer, final String topicName) {
+        final Thread thread = new Thread(new Runnable() {
+            private volatile boolean running = true;
+
+            public void run() {
+                while (running) {
+                    runProducer(bootstrapServer, topicName, gateJsonString(fields));
                     running = false;
                 }
             }
