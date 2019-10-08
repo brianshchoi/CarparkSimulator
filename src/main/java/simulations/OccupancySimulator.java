@@ -29,13 +29,13 @@ public class OccupancySimulator implements Runnable{
             String topicName = args[1];
             int capacity = Integer.parseInt(args[2]);
 
-            Thread t = new Thread(new OccupancySimulator(bootstrapServer, topicName, capacity), "thread");
+            Thread t = new Thread(new OccupancySimulator(bootstrapServer, topicName, capacity), "thrsdead");
             t.start();
         }
     }
 
     public void run() {
-        Runtime.getRuntime().addShutdownHook(new Thread("shutdown thread") {
+        Runtime.getRuntime().addShutdownHook(new Thread("2 thread") {
             public void run () {
                 synchronized (this)
                 {
