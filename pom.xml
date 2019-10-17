@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.brianchoi</groupId>
-    <artifactId>event-driven-occupancy-simulator</artifactId>
+    <artifactId>dated-occupancy-simulator</artifactId>
     <version>1.0</version>
 
     <dependencies>
@@ -33,7 +33,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>simulations.EventDrivenOccupancySimulator</mainClass>
+                            <mainClass>simulations.DatedOccupancySimulator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -60,7 +60,7 @@
                     <!-- MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>simulations.EventDrivenOccupancySimulator</mainClass>
+                            <mainClass>simulations.DatedOccupancySimulator</mainClass>
                         </manifest>
                     </archive>
 

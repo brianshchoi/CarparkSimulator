@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 /**
  * This simulator is used for generating random occupancy datasets using past dates (NOT EVENT-DRIVEN)
  */
-public class OccupancySimulatorDated {
+public class DatedOccupancySimulator {
 
     public static void main(String[] args) {
         System.out.println("Occupancy Simulator Dated running");
