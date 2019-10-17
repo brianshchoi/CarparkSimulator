@@ -68,8 +68,8 @@ public class OccupancySimulatorDated {
                         String macAddress = cp.getSensorIndexMap()[j];
                         Sensor sensor = cp.getSensor(macAddress);
 
-                        System.out.println(sensor.getMacAddress() + " " + sensor.getIsOccupied() + " " + sensor.getTimestamp());
-//                        jsonWriter.toKafkaProducer(sensor, bootstrapServer, topicName);
+//                        System.out.println(sensor.getMacAddress() + " " + sensor.getIsOccupied() + " " + sensor.getTimestamp());
+                        jsonWriter.toKafkaProducer(sensor, bootstrapServer, topicName);
                     }
 
                     System.out.println("Data @" + cp.getTimestampAsString() + " appended");
@@ -77,6 +77,7 @@ public class OccupancySimulatorDated {
                     // OPTIONAL
                     try {
                         // CAN CHANGE DELAY TO BE 0 IF YOU WANT THE DATA TO BE GENERATED INSTANTLY
+                        // I just put in a delay so that kafka broker is not overwhelmed with data
                         Thread.sleep(delayBetweenMinutes * 100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
