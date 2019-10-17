@@ -11,6 +11,21 @@ public class JSONWriter {
     private static final String FILE_EXTENSION = ".json";
     private final String _filename;
 
+    public JSONWriter() {
+        _filename = "carpark";
+
+        try {
+            File f = new File(_filename);
+
+            // Only if file doesn't exist, create a new csv file
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public JSONWriter(String filename) {
         _filename = filename + FILE_EXTENSION;
 
@@ -47,11 +62,12 @@ public class JSONWriter {
                 "\"timestamp\": \"" + fields[0] + "\"," +
                 "\"nodeID\": \"" + fields[1] + "\"," +
                 "\"payload\": {" +
-                "\"entry\": " + fields[2] + "" +
+                "\"occupied\": " + fields[2] + "" +
                 "}" +
                 "}\n";
     }
 
+    // Not needed anymore, but writes to the filename that is provided
     private void writeToFile(String json) {
         try {
             FileWriter fileWriter = new FileWriter(_filename, true);
@@ -68,6 +84,7 @@ public class JSONWriter {
         System.out.println(json);
     }
 
+    // To Kafka Producer for Occupancy Simulator
     public void toKafkaProducer(final Sensor randomSensor, final String bootstrapServer, final String topicName) {
         final Thread thread = new Thread(new Runnable() {
             private volatile boolean running = true;
@@ -83,6 +100,7 @@ public class JSONWriter {
         thread.start();
     }
 
+    // To Kafka Producer for Gate Driven Simulator
     public void toKafkaProducer(final String[] fields, final String bootstrapServer, final String topicName) {
         final Thread thread = new Thread(new Runnable() {
             private volatile boolean running = true;

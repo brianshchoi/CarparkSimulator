@@ -5,13 +5,16 @@ import carparkmodel.CarPark;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
-public class OccupancySimulator implements Runnable{
+/**
+ * This is the EVENT-DRIVEN
+ */
+public class EventDrivenOccupancySimulator implements Runnable{
     private static boolean stop = false;
     private CarPark _carPark;
     private String _bootstrapServer;
     private String _topicName;
 
-    private OccupancySimulator(String bootstrapServer, String topicName, int capacity) {
+    private EventDrivenOccupancySimulator(String bootstrapServer, String topicName, int capacity) {
         _carPark = new CarPark(1, capacity, GregorianCalendar.getInstance());
         _bootstrapServer = bootstrapServer;
         _topicName = topicName;
@@ -23,33 +26,33 @@ public class OccupancySimulator implements Runnable{
             System.out.println("Invalid Arguments");
             System.out.println("Arg 1: Bootstrap servers e.g. \"localhost:9092\" or \"lpc01-kafka01:9092,lpc01-kafka01:9093,lpc01-kafka02:9092\"");
             System.out.println("Arg 2: Topic name e.g. \"sp-topic\" or \"sp-occupancy-1\"");
-
         } else {
             String bootstrapServer = args[0];
             String topicName = args[1];
-            int capacity = Integer.parseInt(args[2]);
 
-            Thread t = new Thread(new OccupancySimulator(bootstrapServer, topicName, capacity), "thrsdead");
+            Thread t = new Thread(new EventDrivenOccupancySimulator(bootstrapServer, topicName, 100), "thread");
             t.start();
         }
     }
 
     public void run() {
-        Runtime.getRuntime().addShutdownHook(new Thread("2 thread") {
+        Runtime.getRuntime().addShutdownHook(new Thread("shutdown thread") {
             public void run () {
                 synchronized (this)
                 {
-                    System.out.println("Occupancy Simulator running");
+                    System.out.println("Occupancy Simulator stopping");
                     stop = true;
                 }
             }
         });
+
         synchronized (this) {
             while(!stop) {
                 try {
                     float run = new Random().nextFloat();
                     int rand = new Random().nextInt(5000);
-//
+
+                    // Random time intervals depending on random value
                     if (run < 0.5) {
                         Thread.sleep(rand * 2 + 20000);
                     } else if (run >= 0.5 && run < 0.7) {
@@ -71,11 +74,7 @@ public class OccupancySimulator implements Runnable{
                         Thread.sleep(rand * 9);
                     }
 
-//                    Thread.sleep(1000);
-
                     MockOccupancy.randomEventCarPark(_carPark, _bootstrapServer, _topicName);
-
-//                    Thread.sleep(new Random().nextInt(500));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

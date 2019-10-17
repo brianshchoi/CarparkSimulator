@@ -22,7 +22,7 @@ public class GateSimulator implements Runnable {
 
     public static void main(String[] args) {
         System.out.println("GateGroup Simulator running");
-        if (args.length < 2 || args[0].length() < 1 || args[1].length() < 1) {
+        if (args.length != 2 || args[0].length() < 1 || args[1].length() < 1) {
             System.out.println("Invalid Arguments");
             System.out.println("Arg 1: Bootstrap servers e.g. \"localhost:9092\" or \"lpc01-kafka01:9092,lpc01-kafka01:9093,lpc01-kafka02:9092\"");
             System.out.println("Arg 2: Topic name e.g. \"sp-topic\" or \"sp-occupancy-1\"");
@@ -81,7 +81,7 @@ public class GateSimulator implements Runnable {
     }
 
     static void randomGateEvent(GateGroup gates, String bootstrapServer, String topicName) {
-        JSONWriter writer = new JSONWriter("Carpark");
+        JSONWriter writer = new JSONWriter();
 
         int index = new Random().nextInt(gates.getSensorIndexMap().length);
         int gateEntryEvent;
