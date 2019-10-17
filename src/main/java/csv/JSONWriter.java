@@ -12,18 +12,7 @@ public class JSONWriter {
     private final String _filename;
 
     public JSONWriter() {
-        _filename = "carpark";
-
-        try {
-            File f = new File(_filename);
-
-            // Only if file doesn't exist, create a new csv file
-            if (!f.exists()) {
-                f.createNewFile();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        _filename = "";
     }
 
     public JSONWriter(String filename) {

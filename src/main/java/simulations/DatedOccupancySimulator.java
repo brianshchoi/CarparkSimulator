@@ -14,13 +14,13 @@ public class DatedOccupancySimulator {
 
     public static void main(String[] args) {
         System.out.println("Occupancy Simulator Dated running");
-        if (args.length != 12) {
+        if (args.length != 12 || Integer.parseInt(args[3]) > 100) {
 
             System.out.println("Invalid Arguments");
             System.out.println("Arg 0: Bootstrap servers e.g. \"localhost:9092\" or \"lpc01-kafka01:9092,lpc01-kafka01:9093,lpc01-kafka02:9092\"");
             System.out.println("Arg 1: Topic name e.g. \"sp-topic\" or \"sp-occupancy-1\"");
             System.out.println("Arg 2: Carpark ID");
-            System.out.println("Arg 3: Carpark Capacity");
+            System.out.println("Arg 3: Carpark Capacity (current max capacity is 100)");
             System.out.println("Arg 4: Number of Runs");
             System.out.println("Arg 5: Delay in minutes between Simulations");
             System.out.println("Arg 6: Starting Day");
@@ -33,7 +33,6 @@ public class DatedOccupancySimulator {
             System.exit(0);
         } else {
             try {
-
                 String bootstrapServer = args[0];
                 String topicName = args[1];
                 int carParkID = Integer.parseInt(args[2]);
