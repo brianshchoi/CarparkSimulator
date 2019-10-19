@@ -60,7 +60,7 @@ public class DatedOccupancySimulator {
                 CarPark cp = MockOccupancy.randomiseCarPark(
                         new CarPark(carParkID, carParkCapacity, calendar), 1, numberOfRuns);
 
-                JSONWriter jsonWriter = new JSONWriter();
+                JSONWriter jsonWriter = new JSONWriter("Carpark");
 
                 for (int i = 0; i < numberOfRuns; i++) {
                     for (int j = 0; j < carParkCapacity; j++) {
@@ -68,6 +68,7 @@ public class DatedOccupancySimulator {
                         Sensor sensor = cp.getSensor(macAddress);
 
 //                        System.out.println(sensor.getMacAddress() + " " + sensor.getIsOccupied() + " " + sensor.getTimestamp());
+                        jsonWriter.writeToFile(jsonWriter.sensorJsonString(sensor));
                         jsonWriter.toKafkaProducer(sensor, bootstrapServer, topicName);
                     }
 

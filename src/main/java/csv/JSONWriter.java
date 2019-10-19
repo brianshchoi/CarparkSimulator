@@ -36,7 +36,7 @@ public class JSONWriter {
         writeToTerminal(sensorJsonString(sensor));
     }
 
-    private String sensorJsonString(Sensor sensor) {
+    public String sensorJsonString(Sensor sensor) {
         return "{" +
                 "\"timestamp\": \"" + sensor.getTimestamp() + "\"," +
                 "\"nodeID\": \"" + sensor.getMacAddress() + "\"," +
@@ -56,8 +56,7 @@ public class JSONWriter {
                 "}\n";
     }
 
-    // Not needed anymore, but writes to the filename that is provided
-    private void writeToFile(String json) {
+    public void writeToFile(String json) {
         try {
             FileWriter fileWriter = new FileWriter(_filename, true);
             fileWriter.write(json);
