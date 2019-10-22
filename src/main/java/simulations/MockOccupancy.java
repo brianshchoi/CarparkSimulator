@@ -41,7 +41,7 @@ public class MockOccupancy {
         if (showAll) {
             for (String nodeID : indexMap) {
                 Sensor sensor = carPark.getSensor(nodeID);
-                writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
+                writer.toKafkaProducer(sensor, bootstrapServer, topicName);
                 writer.toJson(sensor);
             }
         } else {
