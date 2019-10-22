@@ -43,7 +43,7 @@ public class JSONWriter {
                 "\"payload\": {" +
                 "\"occupied\": " + sensor.getIsOccupiedAsString() + "" +
                 "}" +
-                "}\n";
+                "}";
     }
 
     private String gateJsonString(String[] fields) {
@@ -53,7 +53,7 @@ public class JSONWriter {
                 "\"payload\": {" +
                 "\"occupied\": " + fields[2] + "" +
                 "}" +
-                "}\n";
+                "}";
     }
 
     public void writeToFile(String json) {
