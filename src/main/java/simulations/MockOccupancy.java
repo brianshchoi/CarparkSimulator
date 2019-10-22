@@ -28,7 +28,6 @@ public class MockOccupancy {
 
     static void randomEventCarPark(CarPark carPark, String bootstrapServer, String topicName, int delay, boolean showAll) {
         JSONWriter writer = new JSONWriter("Carpark");
-//        HashMap<Integer, String> indexMap = carPark.getSensorIndexMap();
         String[] indexMap = carPark.getSensorIndexMap();
         HashMap<String, Sensor> sensors = carPark.getSensors();
 
@@ -42,12 +41,11 @@ public class MockOccupancy {
         if (showAll) {
             for (String nodeID : indexMap) {
                 Sensor sensor = carPark.getSensor(nodeID);
-                //        writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
-
+                writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
                 writer.toJson(sensor);
             }
         } else {
-            //        writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
+            writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
             writer.toJson(randomSensor);
         }
     }
