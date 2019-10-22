@@ -26,7 +26,7 @@ public class MockOccupancy {
         return carPark;
     }
 
-    static void randomEventCarPark(CarPark carPark, String bootstrapServer, String topicName) {
+    static void randomEventCarPark(CarPark carPark, String bootstrapServer, String topicName, int delay, boolean showAll) {
         JSONWriter writer = new JSONWriter("Carpark");
 //        HashMap<Integer, String> indexMap = carPark.getSensorIndexMap();
         String[] indexMap = carPark.getSensorIndexMap();
@@ -37,10 +37,19 @@ public class MockOccupancy {
                         new Random().nextInt(sensors.size())]);
 
         randomSensor.setOpposite();
-        randomSensor.setCurrentTimestamp();
+        randomSensor.setDelay(delay);
 
-        writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
-//        writer.toJson(randomSensor);
+        if (showAll) {
+            for (String nodeID : indexMap) {
+                Sensor sensor = carPark.getSensor(nodeID);
+                //        writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
+
+                writer.toJson(sensor);
+            }
+        } else {
+            //        writer.toKafkaProducer(randomSensor, bootstrapServer, topicName);
+            writer.toJson(randomSensor);
+        }
     }
 
     public static float pseudoRandomProbability(int runNumber, int totalRuns) {

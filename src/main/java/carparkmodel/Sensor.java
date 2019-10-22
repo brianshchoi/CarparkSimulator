@@ -49,4 +49,8 @@ public class Sensor {
     public void setCurrentTimestamp() {
         _calendar = GregorianCalendar.getInstance();
     }
+
+    public void setDelay(int delay) {
+        _calendar.add(Calendar.MILLISECOND, delay);
+    }
 }

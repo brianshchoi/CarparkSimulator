@@ -44,7 +44,7 @@ public class DatedOccupancySimulator {
                 int year = Integer.parseInt(args[8]);
                 int startingHour = Integer.parseInt(args[9]);
                 int startingMinute = Integer.parseInt(args[10]);
-                int startingSecond = Integer.parseInt(args[10]);
+                int startingSecond = Integer.parseInt(args[11]);
 
                 // Valid argument check
                 if (carParkID < 0 | carParkCapacity < 1 | numberOfRuns < 1 | delayBetweenMinutes < 1
