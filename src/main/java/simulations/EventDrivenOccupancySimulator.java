@@ -37,43 +37,52 @@ public class EventDrivenOccupancySimulator implements Runnable {
 
     public static void main(String[] args) {
         System.out.println("Occupancy Simulator running");
-        if (args.length != 3 && args.length != 9) {
+        if (args.length != 4 && args.length != 10) {
             System.out.println("Invalid Arguments");
             System.out.println("Arg 0: Bootstrap servers e.g. \"localhost:9092\" or \"lpc01-kafka01:9092,lpc01-kafka01:9093,lpc01-kafka02:9092\"");
             System.out.println("Arg 1: Topic name e.g. \"sp-topic\" or \"sp-occupancy-1\"");
-            System.out.println("Arg 2: Option to show ALL records (\"y\" for yes or \"n\" for no)");
+            System.out.println("Arg 2: Capacity of Carpark (Up to 100)");
+            System.out.println("Arg 3: Option to show ALL records (\"y\" for yes or \"n\" for no)");
 
             System.out.println("============================");
             System.out.println("OPTIONAL ARGUMENTS FOR DATES");
             System.out.println("============================");
-            System.out.println("Arg 3: Starting Day");
-            System.out.println("Arg 4: Starting Month (1-12)");
-            System.out.println("Arg 5: Starting Year");
-            System.out.println("Arg 6: Starting Hour (24h)");
-            System.out.println("Arg 7: Starting Minute");
-            System.out.println("Arg 8: Starting Second");
+            System.out.println("Arg 4: Starting Day");
+            System.out.println("Arg 5: Starting Month (1-12)");
+            System.out.println("Arg 6: Starting Year");
+            System.out.println("Arg 7: Starting Hour (24h)");
+            System.out.println("Arg 8: Starting Minute");
+            System.out.println("Arg 9: Starting Second");
 
             System.exit(0);
-        } else if (args.length == 3) {
+        } else if (args.length == 4) {
             // Real time Event Driven
             String bootstrapServer = args[0];
             String topicName = args[1];
-            boolean showAllSlots = args[2].equalsIgnoreCase("y");
+            int capacity = Integer.parseInt(args[2]);
+            boolean showAllSlots = args[3].equalsIgnoreCase("y");
 
-            Thread t = new Thread(new EventDrivenOccupancySimulator(bootstrapServer, topicName, 100, showAllSlots), "thread");
+            if (capacity > 100) {
+                capacity = 100;
+            } else if (capacity <= 0) {
+                capacity = 1;
+            }
+
+            Thread t = new Thread(new EventDrivenOccupancySimulator(bootstrapServer, topicName, capacity, showAllSlots), "thread");
             t.start();
         } else {
             // Event driven with past (or future) date
             String bootstrapServer = args[0];
             String topicName = args[1];
-            boolean showAllSlots = args[2].equalsIgnoreCase("y");
+            int capacity = Integer.parseInt(args[2]);
+            boolean showAllSlots = args[3].equalsIgnoreCase("y");
 
-            int day = Integer.parseInt(args[3]);
-            int month = Integer.parseInt(args[4]);
-            int year = Integer.parseInt(args[5]);
-            int startingHour = Integer.parseInt(args[6]);
-            int startingMinute = Integer.parseInt(args[7]);
-            int startingSecond = Integer.parseInt(args[8]);
+            int day = Integer.parseInt(args[4]);
+            int month = Integer.parseInt(args[5]);
+            int year = Integer.parseInt(args[6]);
+            int startingHour = Integer.parseInt(args[7]);
+            int startingMinute = Integer.parseInt(args[8]);
+            int startingSecond = Integer.parseInt(args[9]);
 
             // Valid argument check
             if (startingHour < 0 | startingHour > 23 | startingMinute < 0 | startingMinute > 59 | startingSecond < 0
@@ -81,11 +90,17 @@ public class EventDrivenOccupancySimulator implements Runnable {
                 throw new IllegalArgumentException("Argument passed has an invalid value");
             }
 
+            if (capacity > 100) {
+                capacity = 100;
+            } else if (capacity <= 0) {
+                capacity = 1;
+            }
+
             Calendar calendar = new GregorianCalendar(
                     year, month - 1, day, startingHour, startingMinute, startingSecond);
 
 
-            Thread t = new Thread(new EventDrivenOccupancySimulator(bootstrapServer, topicName, 100, showAllSlots, calendar), "thread");
+            Thread t = new Thread(new EventDrivenOccupancySimulator(bootstrapServer, topicName, capacity, showAllSlots, calendar), "thread");
             t.start();
         }
     }
