@@ -76,6 +76,8 @@ public class CarPark {
     }
 
     private void initCarparkNodes(int capacity) {
+        _sensorMACAddressArray = Arrays.copyOfRange(_sensorMACAddressArray, 0, capacity);
+
         for (int i = 0; i < capacity; i++) {
             Sensor s = new Sensor(_sensorMACAddressArray[i], _calendar);
             _sensors.put(_sensorMACAddressArray[i], s);

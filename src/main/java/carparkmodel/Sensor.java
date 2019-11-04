@@ -3,6 +3,7 @@ package carparkmodel;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 public class Sensor {
 
@@ -19,7 +20,12 @@ public class Sensor {
     public Sensor(String macAddress, Calendar timestamp) {
         _macAddress = macAddress;
         _calendar = timestamp;
-        _isOccupied = false;
+        _isOccupied = randomiseInitialOccupied();
+    }
+
+    private boolean randomiseInitialOccupied() {
+        Random random = new Random();
+        return random.nextBoolean();
     }
 
     public String getMacAddress() {
